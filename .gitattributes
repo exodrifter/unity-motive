@@ -1,0 +1,6 @@
+*        text=auto
+
+*.asset  text eol=lf
+*.cs     text
+*.meta   text eol=lf
+*.unity  text eol=lf
