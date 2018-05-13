@@ -37,7 +37,7 @@ namespace Exodrifter.Motive
 
 		/// The Left (or primary) mouse button.
 		/// </summary>
-		public KeyTracker Primary
+		public MouseKeyTracker Primary
 		{
 			get { return keys[0]; }
 		}
@@ -45,7 +45,7 @@ namespace Exodrifter.Motive
 		/// <summary>
 		/// Right mouse button (or secondary mouse button).
 		/// </summary>
-		public KeyTracker Secondary
+		public MouseKeyTracker Secondary
 		{
 			get { return keys[1]; }
 		}
@@ -55,7 +55,7 @@ namespace Exodrifter.Motive
 		/// </summary>
 		/// <param name="key">The index of the mouse button to get.</param>
 		/// <returns>The key tracker for the mouse button.</returns>
-		public KeyTracker this[int key]
+		public MouseKeyTracker this[int key]
 		{
 			get
 			{
@@ -72,18 +72,18 @@ namespace Exodrifter.Motive
 		}
 
 		/// <summary>
+		/// The squared distance in pixels before a mouse movement accompanied
+		/// by a button press is considered a drag.
+		/// </summary>
+		public float SqrDragDistance
+		{
+			get { return 100; }
+		}
+
+		/// <summary>
 		/// An array of buttons on the mouse.
 		/// </summary>
-		private readonly KeyTracker[] keys = new KeyTracker[]
-		{
-			new KeyTracker(KeyCode.Mouse0),
-			new KeyTracker(KeyCode.Mouse1),
-			new KeyTracker(KeyCode.Mouse2),
-			new KeyTracker(KeyCode.Mouse3),
-			new KeyTracker(KeyCode.Mouse4),
-			new KeyTracker(KeyCode.Mouse5),
-			new KeyTracker(KeyCode.Mouse6),
-		};
+		private readonly MouseKeyTracker[] keys;
 
 		/// <summary>
 		/// Creates a new mouse tracker.
@@ -92,6 +92,17 @@ namespace Exodrifter.Motive
 		{
 			position = mousePosition;
 			lastPosition = mousePosition;
+
+			keys = new MouseKeyTracker[]
+			{
+				new MouseKeyTracker(KeyCode.Mouse0, this),
+				new MouseKeyTracker(KeyCode.Mouse1, this),
+				new MouseKeyTracker(KeyCode.Mouse2, this),
+				new MouseKeyTracker(KeyCode.Mouse3, this),
+				new MouseKeyTracker(KeyCode.Mouse4, this),
+				new MouseKeyTracker(KeyCode.Mouse5, this),
+				new MouseKeyTracker(KeyCode.Mouse6, this),
+			};
 		}
 
 		/// <summary>
