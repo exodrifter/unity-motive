@@ -119,5 +119,25 @@ namespace Exodrifter.Motive
 				key.Update();
 			}
 		}
+
+		public bool Raycast<T>(out T component) where T: Component
+		{
+			if (Camera.main != null && !Camera.main.Equals(null))
+			{
+				var hit = new RaycastHit();
+				var ray = Camera.main.ScreenPointToRay(position);
+				if (Physics.Raycast(ray, out hit))
+				{
+					component = hit.collider.GetComponent<T>();
+					if (component != null && !component.Equals(null))
+					{
+						return true;
+					}
+				}
+			}
+
+			component = null;
+			return false;
+		}
 	}
 }

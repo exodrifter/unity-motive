@@ -5,6 +5,15 @@ using UnityEngine;
 public class MouseKeyTracker : KeyTracker
 {
 	/// <summary>
+	/// True if this key was just clicked this frame.
+	/// </summary>
+	public bool JustClicked
+	{
+		get { return justClicked; }
+	}
+	private bool justClicked;
+
+	/// <summary>
 	/// An event for when the key is pressed and released without the mouse
 	/// moving.
 	/// </summary>
@@ -43,6 +52,7 @@ public class MouseKeyTracker : KeyTracker
 	internal override void Update()
 	{
 		base.Update();
+		justClicked = false;
 
 		if (JustPressed)
 		{
@@ -62,6 +72,8 @@ public class MouseKeyTracker : KeyTracker
 			}
 			else
 			{
+				justClicked = true;
+
 				if (OnClick != null)
 				{
 					OnClick();
