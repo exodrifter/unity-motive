@@ -14,6 +14,24 @@ public class MouseKeyTracker : KeyTracker
 	private bool justClicked;
 
 	/// <summary>
+	/// True if this key was just started dragging this frame.
+	/// </summary>
+	public bool JustStartedDrag
+	{
+		get { return justStartedDrag; }
+	}
+	private bool justStartedDrag;
+
+	/// <summary>
+	/// True if this key was just ended dragging this frame.
+	/// </summary>
+	public bool JustEndedDrag
+	{
+		get { return justEndedDrag; }
+	}
+	private bool justEndedDrag;
+
+	/// <summary>
 	/// An event for when the key is pressed and released without the mouse
 	/// moving.
 	/// </summary>
@@ -53,6 +71,8 @@ public class MouseKeyTracker : KeyTracker
 	{
 		base.Update();
 		justClicked = false;
+		justStartedDrag = false;
+		justEndedDrag = false;
 
 		if (JustPressed)
 		{
@@ -65,6 +85,7 @@ public class MouseKeyTracker : KeyTracker
 			{
 				dragStarted = false;
 
+				justEndedDrag = true;
 				if (OnDragEnd != null)
 				{
 					OnDragEnd(dragStartPosition);
@@ -88,6 +109,7 @@ public class MouseKeyTracker : KeyTracker
 
 				if (dragDelta.sqrMagnitude >= mouse.SqrDragDistance)
 				{
+					justStartedDrag = true;
 					if (OnDragStart != null)
 					{
 						OnDragStart(dragStartPosition);
