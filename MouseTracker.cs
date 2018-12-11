@@ -120,7 +120,7 @@ namespace Exodrifter.Motive
 			}
 		}
 
-		public bool Raycast<T>(out T component) where T: Component
+		public bool Raycast<T>(out T component)
 		{
 			if (Camera.main != null && !Camera.main.Equals(null))
 			{
@@ -136,7 +136,7 @@ namespace Exodrifter.Motive
 				}
 			}
 
-			component = null;
+			component = default(T);
 			return false;
 		}
 	}
