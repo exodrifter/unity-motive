@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace Exodrifter.Motive
 {
@@ -138,6 +139,20 @@ namespace Exodrifter.Motive
 
 			component = default(T);
 			return false;
+		}
+
+		public T[] RaycastAll<T>(float distance)
+		{
+			if (Camera.main != null && !Camera.main.Equals(null))
+			{
+				var ray = Camera.main.ScreenPointToRay(position);
+				return Physics.RaycastAll(ray, distance)
+					.Select(hit => hit.collider.GetComponent<T>())
+					.Where(x => x != null && !x.Equals(null))
+					.ToArray();
+			}
+
+			return default;
 		}
 	}
 }
